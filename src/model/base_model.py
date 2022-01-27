@@ -1,5 +1,4 @@
-from torch import nn
-import torch.nn.functional as F
+from torch import nn, Tensor
 
 from settings import model_settings
 
@@ -21,5 +20,5 @@ class BaseModel(nn.Module):
             nn.Linear(500, model_settings.NUM_CLASSES),
         )
 
-    def forward(self, img):
+    def forward(self, img: Tensor):
         return self._model(img)
