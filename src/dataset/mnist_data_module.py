@@ -12,7 +12,7 @@ torch.manual_seed(consts.RANDOM_SEED)
 
 class MNISTDataModule(LightningDataModule):
     """
-    
+    Manages the model datasets
     """
 
     def __init__(self):
