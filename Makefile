@@ -26,3 +26,6 @@ activate-env-command:
 run-tensorboard:
 	@echo "======================== Run the displayed link in your browser to view training results via tensorboard ========================" 
 	tensorboard --logdir ./output/
+
+purge-output:
+	rm -r output/*
