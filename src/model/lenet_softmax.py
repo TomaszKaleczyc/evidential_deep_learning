@@ -39,10 +39,10 @@ class LeNetSoftmax(pl.LightningModule):
         Standard training/validation step
         """
         input_images, expected_classes = batch
-        predicted_logits = self(input_images)
+        predicted_logits = self(input_images)   
+        predicted_probabilities = torch.softmax(predicted_logits, dim=1)
         loss = F.cross_entropy(predicted_logits, expected_classes)
-        predicted_classes = torch.softmax(predicted_logits, dim=1)
-        self.accuracy(predicted_classes, expected_classes)
+        self.accuracy(predicted_probabilities, expected_classes)
         self.log(f'{dataset_name}/loss', loss)
         self.log(f'{dataset_name}/accuracy', self.accuracy)
         return loss
@@ -52,3 +52,11 @@ class LeNetSoftmax(pl.LightningModule):
         Configuring the net optimization methods
         """
         return torch.optim.Adam(self.parameters())
+
+    def predict(self, image_batch: List[Tensor]):
+        """
+        Zwraca prawdopodobieństwo na podstawie batcha zdjęć
+        """
+        predicted_logits = self(image_batch)   
+        predicted_probabilities = torch.softmax(predicted_logits, dim=1)
+        return predicted_probabilities.argmax(dim=1), predicted_probabilities
