@@ -20,11 +20,11 @@ class LeNetEDL(pl.LightningModule):
     output to estimate the Dirichlet 
     """
 
-    def __init__(self, logits_to_evidence_function: str = 'relu', loss_function: str = 'mse'):
+    def __init__(self, logits_to_evidence: str = 'relu', loss_function: str = 'mse'):
         super().__init__()
         self.base_model = BaseModel(dropout_rate=model_settings.DROPOUT_RATE)
         self.accuracy = torchmetrics.Accuracy()
-        self.logits_to_evidence_function = edl_utils.logits_to_evidence(logits_to_evidence_function)
+        self.logits_to_evidence_function = edl_utils.logits_to_evidence(logits_to_evidence)
         self.loss_function = edl_losses.edl_loss(loss_function)
 
     def forward(self, img: Tensor):
