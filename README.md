@@ -1,6 +1,6 @@
 # Evidential Deep Learning with PyTorch
 
-![cover](data/cover.JPG)
+![cover](data/images/cover.JPG)
 
 This repository contains a demontstration of how to build, train and evaluate a neural network capable of measuring epistemic uncertainty as proposed by the authors of [*Evidential Deep Learning to Quantify Classification Uncertainty*](https://arxiv.org/pdf/1806.01768.pdf), as well as some experiments performed on such architectures.
 
@@ -17,12 +17,14 @@ This repository contains a demontstration of how to build, train and evaluate a 
 ## Project structure
 
 ```
+├── data                                # Definition and contents of the project virtualenv
 ├── environment                         # Definition and contents of the project virtualenv
-├── output                              # Stores model training results
+├── output                              # Default location for model training results
 │   └── lightning_logs                  # Generated automatically by pytorch-lightning during training
-├── src                                 # Source files of the project
-│   ├── dataset                         # Stores classes used in building and managing the project dataset
-│   ├── model                           # Stores classes used in building and running the model
-│   └── settings                        # Stores constants, configurations and utilities used across the repo   
+└── src                                 # Source files of the project
+    ├── dataset                         # Classes used in building and managing the project dataset
+    ├── model                           # Classes and functions used in building and running the models
+    ├── settings                        # Setting variables used across the repo 
+    └── utilities                       # Utility functions
 
 ```

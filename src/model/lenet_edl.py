@@ -10,7 +10,7 @@ import pytorch_lightning as pl
 
 
 from model.base_model import BaseModel
-from model import edl_losses, edl_utils 
+from model import edl_losses, edl_evidence 
 from settings import model_settings
 
 
@@ -24,7 +24,7 @@ class LeNetEDL(pl.LightningModule):
         super().__init__()
         self.base_model = BaseModel(dropout_rate=model_settings.DROPOUT_RATE)
         self.accuracy = torchmetrics.Accuracy()
-        self.logits_to_evidence_function = edl_utils.logits_to_evidence(logits_to_evidence)
+        self.logits_to_evidence_function = edl_evidence.logits_to_evidence(logits_to_evidence)
         self.loss_function = edl_losses.edl_loss(loss_function)
 
     def forward(self, img: Tensor):
@@ -78,6 +78,8 @@ class LeNetEDL(pl.LightningModule):
         """
         Zwraca prawdopodobieństwo na podstawie batcha zdjęć
         """
+        if not self.eval:
+            self.eval = True
         _, predicted_probabilities, uncertainty = self._calculate_edl_factors(image_batch)
         predicted_classes = predicted_probabilities.argmax(dim=1)
         return predicted_classes, predicted_probabilities, uncertainty

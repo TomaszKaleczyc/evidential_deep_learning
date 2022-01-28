@@ -28,4 +28,4 @@ run-tensorboard:
 	tensorboard --logdir ./output/
 
 purge-output:
-	rm -r output/*
+	rm -r output/lightning_logs
