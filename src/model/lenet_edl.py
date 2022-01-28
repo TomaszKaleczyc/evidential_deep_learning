@@ -65,7 +65,14 @@ class LeNetEDL(pl.LightningModule):
         """
         Configuring the net optimization methods
         """
-        return torch.optim.Adam(self.parameters())
+        parameter_groups = [
+            {'params': self.base_model.feature_extractor.parameters(), 'weight_decay': model_settings.FEATURE_EXTRACTOR_WEIGHT_DECAY},
+            {'params': self.base_model.head.parameters(), 'weight_decay': model_settings.HEAD_WEIGHT_DECAY}
+        ]
+        return torch.optim.Adam(
+            parameter_groups, 
+            lr=model_settings.LEARNING_RATE
+            )
 
     def predict(self, image_batch: List[Tensor]) -> Tuple[Tensor, Tensor, Tensor]:
         """
