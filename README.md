@@ -17,7 +17,7 @@ This repository contains a demontstration of how to build, train and evaluate a 
 ## Project structure
 
 ```
-├── data                                # Definition and contents of the project virtualenv
+├── data                                # Data used in the project
 ├── environment                         # Definition and contents of the project virtualenv
 ├── output                              # Default location for model training results
 │   └── lightning_logs                  # Generated automatically by pytorch-lightning during training
