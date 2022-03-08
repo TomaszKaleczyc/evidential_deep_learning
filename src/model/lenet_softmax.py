@@ -60,10 +60,11 @@ class LeNetSoftmax(pl.LightningModule):
             lr=model_settings.LEARNING_RATE
             )
 
-    def predict(self, image_batch: List[Tensor]):
+    def predict(self, image_batch: List[Tensor]) -> tuple:
         """
         Zwraca prawdopodobieństwo na podstawie batcha zdjęć
         """
+        self.eval()
         predicted_logits = self(image_batch)   
         predicted_probabilities = torch.softmax(predicted_logits, dim=1)
-        return predicted_probabilities.argmax(dim=1), predicted_probabilities
+        return predicted_probabilities.argmax(dim=1), predicted_probabilities, None

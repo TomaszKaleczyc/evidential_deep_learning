@@ -1,4 +1,4 @@
-from typing import Callable
+import cv2
 from matplotlib import pyplot as plt
 import numpy as np
 
@@ -68,3 +68,23 @@ def rotating_image_classification(model: LightningModule, image: Tensor):
     plt.imshow(image_display)
     plt.axis('off')
     plt.show()
+
+
+def read_image(image_path: str, view=True) -> np.ndarray:
+    """
+    Views and returns the image based on the filepath
+    """
+    image = plt.imread(image_path)
+    if view:
+        plt.imshow(image)
+    return image
+
+
+def convert_to_model_input(image: np.ndarray, output_shape=(28, 28)) -> Tensor:
+    """
+    Returns image converted to required model input
+    """
+    grey = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+    resized_grey = cv2.resize(grey, output_shape)
+    tensor = Tensor(resized_grey)
+    return tensor.unsqueeze(0).unsqueeze(0)

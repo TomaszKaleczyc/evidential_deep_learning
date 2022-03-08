@@ -78,8 +78,7 @@ class LeNetEDL(pl.LightningModule):
         """
         Zwraca prawdopodobieństwo na podstawie batcha zdjęć
         """
-        if not self.eval:
-            self.eval = True
+        self.eval()
         _, predicted_probabilities, uncertainty = self._calculate_edl_factors(image_batch)
         predicted_classes = predicted_probabilities.argmax(dim=1)
         return predicted_classes, predicted_probabilities, uncertainty
